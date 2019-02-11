@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     private var button = UIButton()
     private var buttonTableVC = UIButton()
 
+    private var autolayoutButton = UIButton()
+    private var autolayoutButtonBottomConstraint: NSLayoutConstraint?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(type(of: self)): \(#function)")
@@ -28,6 +31,19 @@ class ViewController: UIViewController {
         buttonTableVC.backgroundColor = UIColor.gray
         buttonTableVC.addTarget(self, action: #selector(callTableVC), for: .touchDown)
         view.addSubview(buttonTableVC)
+
+        // 最初にautolayoutButtonをviwに追加
+        autolayoutButton.setTitle("AutoLayout", for: .normal)
+        autolayoutButton.backgroundColor = UIColor.red
+        autolayoutButton.addTarget(self, action: #selector(changeAutoLayout), for: .touchDown)
+        view.addSubview(autolayoutButton)
+        // 制約を追加
+        autolayoutButton.translatesAutoresizingMaskIntoConstraints = false
+        autolayoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
+        autolayoutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 400).isActive = true
+        autolayoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
+        autolayoutButtonBottomConstraint = autolayoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200)
+        autolayoutButtonBottomConstraint?.isActive = true
     }
 
     @objc func clickButton() {
@@ -36,8 +52,14 @@ class ViewController: UIViewController {
     }
 
     @objc func callTableVC() {
-        print("clickButton")
+        print("buttonTableVC")
         present(TableViewController(), animated: true, completion: nil)
+    }
+
+    @objc func changeAutoLayout() {
+        print("autolayoutButton")
+        // 制約を更新
+        autolayoutButtonBottomConstraint?.constant = 0
     }
 
     override func viewWillAppear(_ animated: Bool) {
