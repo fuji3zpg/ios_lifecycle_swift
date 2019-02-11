@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private var button = UIButton()
+    private var buttonTableVC = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +22,22 @@ class ViewController: UIViewController {
         button.backgroundColor = UIColor.red
         button.addTarget(self, action: #selector(clickButton), for: .touchDown)
         view.addSubview(button)
+
+        buttonTableVC.frame = CGRect(x: 100, y: 200, width: 200, height: 50)
+        buttonTableVC.setTitle("テーブルビュー", for: .normal)
+        buttonTableVC.backgroundColor = UIColor.gray
+        buttonTableVC.addTarget(self, action: #selector(callTableVC), for: .touchDown)
+        view.addSubview(buttonTableVC)
     }
 
     @objc func clickButton() {
         print("clickButton")
         view.setNeedsLayout()
+    }
+
+    @objc func callTableVC() {
+        print("clickButton")
+        present(TableViewController(), animated: true, completion: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
