@@ -14,7 +14,9 @@ class ViewController: UIViewController {
     private var buttonTableVC = UIButton()
 
     private var autolayoutButton = UIButton()
+    private var autolayoutButton2 = UIButton()
     private var autolayoutButtonBottomConstraint: NSLayoutConstraint?
+    private var autolayoutButtonBottomConstraint2: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,19 @@ class ViewController: UIViewController {
         autolayoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
         autolayoutButtonBottomConstraint = autolayoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400)
         autolayoutButtonBottomConstraint?.isActive = true
+
+        // 最初にautolayoutButton2をviwに追加
+        autolayoutButton2.setTitle("AutoLayout2", for: .normal)
+        autolayoutButton2.backgroundColor = UIColor.red
+        autolayoutButton2.addTarget(self, action: #selector(changeAutoLayout2), for: .touchDown)
+        view.addSubview(autolayoutButton2)
+        // 制約を追加
+        autolayoutButton2.translatesAutoresizingMaskIntoConstraints = false
+        autolayoutButton2.leadingAnchor.constraint(equalTo: autolayoutButton.leadingAnchor, constant: 0).isActive = true
+        autolayoutButton2.topAnchor.constraint(equalTo: autolayoutButton.bottomAnchor, constant: 50).isActive = true
+        autolayoutButton2.trailingAnchor.constraint(equalTo: autolayoutButton.trailingAnchor, constant: 0).isActive = true
+        autolayoutButtonBottomConstraint2 = autolayoutButton2.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200)
+        autolayoutButtonBottomConstraint2?.isActive = true
     }
 
     @objc func clickButton() {
@@ -61,7 +76,15 @@ class ViewController: UIViewController {
         print("autolayoutButton")
         // 制約を更新
         if let constraint = autolayoutButtonBottomConstraint {
-            constraint.constant = constraint.constant + 200
+            constraint.constant = constraint.constant + 100
+        }
+    }
+
+    @objc func changeAutoLayout2() {
+        print("autolayoutButton2")
+        // 制約を更新
+        if let constraint = autolayoutButtonBottomConstraint2 {
+            constraint.constant = constraint.constant + 100
         }
     }
 
