@@ -40,9 +40,10 @@ class ViewController: UIViewController {
         // 制約を追加
         autolayoutButton.translatesAutoresizingMaskIntoConstraints = false
         autolayoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
-        autolayoutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 400).isActive = true
+        autolayoutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: buttonTableVC.frame.origin.y + 100).isActive = true
+        print("buttonTableVC.frame.origin.y=\(buttonTableVC.frame.origin.y)")
         autolayoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
-        autolayoutButtonBottomConstraint = autolayoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200)
+        autolayoutButtonBottomConstraint = autolayoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400)
         autolayoutButtonBottomConstraint?.isActive = true
     }
 
@@ -59,7 +60,9 @@ class ViewController: UIViewController {
     @objc func changeAutoLayout() {
         print("autolayoutButton")
         // 制約を更新
-        autolayoutButtonBottomConstraint?.constant = 0
+        if let constraint = autolayoutButtonBottomConstraint {
+            constraint.constant = constraint.constant + 200
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
