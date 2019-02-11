@@ -10,9 +10,22 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private var button = UIButton()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(type(of: self)): \(#function)")
+
+        button.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
+        button.setTitle("ボタン", for: .normal)
+        button.backgroundColor = UIColor.red
+        button.addTarget(self, action: #selector(clickButton), for: .touchDown)
+        view.addSubview(button)
+    }
+
+    @objc func clickButton() {
+        print("clickButton")
+        view.setNeedsLayout()
     }
 
     override func viewWillAppear(_ animated: Bool) {
